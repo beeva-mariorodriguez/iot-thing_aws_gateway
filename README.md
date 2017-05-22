@@ -1,0 +1,1 @@
+# iot-thing_aws_gateway
