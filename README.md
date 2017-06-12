@@ -19,4 +19,26 @@ usage:
 * AWSIoTPythonSDK ``pip install AWSIoTPythonSDK``
 * paho-mqtt ``pip install paho-mqtt``
 
+## docker
+* mosquitto
+```sh
+docker run --rm -it -p 127.0.0.1:1883:1883 eclipse-mosquitto
+```
+* rabbitmq
+```sh
+docker run --rm -p 127.0.0.1:1883:1883 --name rabbitmq rabbitmq:3.6.10-alpine
+docker exec -ti rabbitmq rabbitmq-plugins enable rabbitmq_mqtt
+```
+* gateway
+```sh
+docker run \
+    --rm \
+    -it \
+    --net=host \
+    -v ${CERTS_PATH}:/certs \
+    my/gateway  -e ${AWSIOT_ENDPOINT} -t ${TOPIC} \
+        -r /certs/root.pem \
+        -c /certs/certificate.pem.crt \
+        -k /certs/private.pem.key
+```
 
