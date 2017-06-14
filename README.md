@@ -1,6 +1,8 @@
 # iot-thing_aws_gateway
 
-simple MQTT forwarder, reads a message from a mqtt server and forwards it to AWS IoT
+simple MQTT forwarders:
+* mqtt-to-aws.py: reads a message from a mqtt server and forwards it to AWS IoT
+* aws-to-mqtt.py: reads a message from AWS IoT and forwards it to the mqtt server
 
 ```
 usage:
@@ -36,7 +38,18 @@ docker run \
     -it \
     --net=host \
     -v ${CERTS_PATH}:/certs \
-    my/gateway  -e ${AWSIOT_ENDPOINT} -t ${TOPIC} \
+    my/gateway  ./mqtt-to-aws.py -e ${AWSIOT_ENDPOINT} -t ${TOPIC} \
+        -r /certs/root.pem \
+        -c /certs/certificate.pem.crt \
+        -k /certs/private.pem.key
+```
+```sh
+docker run \
+    --rm \
+    -it \
+    --net=host \
+    -v ${CERTS_PATH}:/certs \
+    my/gateway  ./aws-to-mqtt.py -e ${AWSIOT_ENDPOINT} -t ${TOPIC} \
         -r /certs/root.pem \
         -c /certs/certificate.pem.crt \
         -k /certs/private.pem.key
