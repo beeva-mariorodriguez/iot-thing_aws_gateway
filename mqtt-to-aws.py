@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 import paho.mqtt.client as mqtt
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient

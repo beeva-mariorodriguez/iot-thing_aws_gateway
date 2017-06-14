@@ -7,6 +7,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-ENTRYPOINT [ "python", "./gateway.py"]
-CMD ["-h"}
+ENTRYPOINT ["python"]
+CMD ["./mqtt-to-aws.py"]
 
