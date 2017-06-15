@@ -4,6 +4,7 @@ import paho.mqtt.client as mqtt
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
 import sys
 import getopt
+import uuid
 
 def connect_to_mqtt(mqttaddr,mqttport):
     """ connect to MQTT and return client """
@@ -36,7 +37,7 @@ def on_message(client, userdata, message):
 def connect_to_aws_iot(clientid,endpoint):
     """ connect to AWS IoT and return client """
 
-    # callbacks
+    print "clientid: " + clientid 
     c = AWSIoTMQTTClient(clientid)
     c.configureEndpoint(endpoint, 8883)
     c.configureCredentials(
@@ -100,7 +101,7 @@ except getopt.GetoptError:
     print(helpInfo)
     exit(1)
 
-awsMQTTClient = connect_to_aws_iot("thing_aws_gateway",endpoint)
+awsMQTTClient = connect_to_aws_iot(str(uuid.uuid4()),endpoint)
 mqttClient = connect_to_mqtt(mqttaddr,mqttport)
 
 print("subscribe to {}".format(topic))
